@@ -2,18 +2,17 @@ import UserCrudListComponents from './UserCrudListComponents'
 import UserCrudForm from './UserCrudFormComponents'
 import userService from './user.service'
 // import PropTypes from 'prop-types'
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 
 const UserCrudComponent = () => {
     const initialUserValue = { nombre: "", apellido: "", email: "", phoneNumber: "" }
     const [userValues, setUserValues] = useState(initialUserValue)
-
-
+    const [editUserValues, setEditUserValues] = useState({...initialUserValue,id:""})
 
     return (
         <>
-            <UserCrudForm setUser={setUserValues} />
-            <UserCrudListComponents userValues={userValues} />
+            <UserCrudForm setUser={setUserValues} editUser={editUserValues} />
+            <UserCrudListComponents userValues={userValues} setEditUser={setEditUserValues} />
         </>
     )
 }

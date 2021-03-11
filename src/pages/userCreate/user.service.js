@@ -8,17 +8,18 @@ export class UserService {
 
     async guardarUsuario(user) {
         try {
+            console.log(user,"crud")
             return axios.post(`${uri}/user`,{
                 nombre : user.nombre,
                 apellido : user.apellido,
                 email : user.email,
-                telefono : user.telefono
+                telefono: user.phoneNumber
             })
         } catch (error) {
             throw error
         }
     }
-    async updateUSer(user){
+     async updateUSer(user){
         try {
             return axios.put(`${uri}/user/${user.id}`, {
                 nombre: user.nombre,

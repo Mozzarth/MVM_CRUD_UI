@@ -2,7 +2,7 @@ import { allUser, deleteUser } from './UserCrudPage'
 // import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
 
-const UserCrudListComponents = ({ userValues }) => {
+const UserCrudListComponents = ({ userValues, setEditUser }) => {
 
     const [users, setUsers] = useState([])
 
@@ -20,6 +20,9 @@ const UserCrudListComponents = ({ userValues }) => {
             .then(resp => {
                 setUsers(u => [...users.filter(user => user.id !== id)])
             })
+    }
+    const _editUser = (user) => {
+        setEditUser({ ...user })
     }
     return (
         <>
@@ -43,7 +46,7 @@ const UserCrudListComponents = ({ userValues }) => {
                                 <td>{user.apellido}</td>
                                 <td>{user.email}</td>
                                 <td>{user.phoneNumber}</td>
-                                <td><button><i className="Large material-icons">edit</i></button> </td>
+                                <td><button onClick={() => _editUser(user) }> <i className="Large material-icons">edit</i></button> </td>
                                 <td><button onClick={() => _deleteUser(user.id)}><i className="Large material-icons">clear</i></button> </td>
                             </tr>
                         ))
