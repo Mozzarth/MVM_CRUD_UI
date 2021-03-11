@@ -1,9 +1,9 @@
-// import axios from 'axios';
+import axios from 'axios';
 // import axios from 'a'
 
 
-const uri = "http://localhost:3020/api"
-const axios = {}
+const uri = "http://localhost:3050/api"
+
 export class UserService {
 
     async guardarUsuario(user) {

@@ -1,14 +1,17 @@
 import React, { Fragment, useState } from 'react'
+import { saveUser } from './UserCrudPage'
 // import PropTypes from 'prop-types'
-function UserCrudFormComponents(props) {
+function UserCrudFormComponents({ setUser }) {
 
-    const initialValue = { nombre: "", apellido: "", email: "", telefono: "" }
+    const initialValue = { nombre: "", apellido: "", email: "", phoneNumber: "" }
     const [values, setValues] = useState(initialValue)
 
 
-    const handleSubmit = event => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        props.callback({values})
+        saveUser(values)
+            .then(u => setUser({ ...values }))
+            .catch(ex => ex)
     }
     const handleInputChange = (event) => {
         const { name, value } = event.target
@@ -25,7 +28,7 @@ function UserCrudFormComponents(props) {
                     </div>
                 </div>
                 <div className="form-group">
-                    <label htmlFor="staticEmail" className="col-sm-2 col-form-label">Apellido</label>
+                    <label htmlFor="apellidp" className="col-sm-2 col-form-label">Apellido</label>
                     <div className="col-sm-10">
                         <input onChange={handleInputChange} type="text" className="form-control-plaintext" name="apellido" placeholder="">
                         </input>

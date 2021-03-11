@@ -1,4 +1,4 @@
-import UserCrudPage from './pages/userCreate/UserCrudComponent.js'
+import UserCrudPage from './pages/userCreate/UserCrudPage'
 import 'bootswatch/dist/lux/bootstrap.min.css'
 import reactDOM from 'react-dom'
 import React from 'react'

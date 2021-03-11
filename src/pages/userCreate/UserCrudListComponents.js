@@ -1,7 +1,26 @@
+import { allUser, deleteUser } from './UserCrudPage'
 // import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
-const UserCrudListComponents = (params) => {
+const UserCrudListComponents = ({ userValues }) => {
+
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        allUser()
+            .then(usersP => setUsers(u => [...usersP.data]))
+    }, [])
+    // Para no hacer la peticion http
+    useEffect(() => {
+        setUsers(u => [userValues, ...u])
+    }, [userValues])
+
+    const _deleteUser = (id) => {
+        deleteUser(id)
+            .then(resp => {
+                setUsers(u => [...users.filter(user => user.id !== id)])
+            })
+    }
     return (
         <>
             <table className="table table-hover">
@@ -16,14 +35,20 @@ const UserCrudListComponents = (params) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="table-active">
-                        <th scope="row">Moises</th>
-                        <td>Caicedo</td>
-                        <td>moisescaicedo15@gmail.com</td>
-                        <td>3206758798</td>
-                        <td><button><i className="Large material-icons">edit</i></button> </td>
-                        <td><button><i className="Large material-icons">clear</i></button> </td>
-                    </tr>
+
+                    {
+                        users.map(user => (
+                            <tr key={user.id} className="table-active">
+                                <th scope="row">{user.nombre}</th>
+                                <td>{user.apellido}</td>
+                                <td>{user.email}</td>
+                                <td>{user.phoneNumber}</td>
+                                <td><button><i className="Large material-icons">edit</i></button> </td>
+                                <td><button onClick={() => _deleteUser(user.id)}><i className="Large material-icons">clear</i></button> </td>
+                            </tr>
+                        ))
+                    }
+
                 </tbody>
             </table>
 
